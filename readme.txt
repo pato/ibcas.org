@@ -1,5 +1,7 @@
 Klein Oak IB CAS Organizer
 
+Current Status: Under Development
+
 This is an IB CAS requirements organizer, used to handle all the paperwork and logs that are required for completetion of the CAS section of the IB Diploma Programme.
 
 Features:
