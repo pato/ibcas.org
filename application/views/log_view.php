@@ -22,6 +22,7 @@
         </div>
         <?php $this->load->view("menu"); ?>
         <div class="container">
+            <h3>Events</h3>
             <?php foreach ($entries as $entry):?>
             <p><?=$entry['title']?></p>
             <?php endforeach; ?>

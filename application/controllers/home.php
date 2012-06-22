@@ -185,6 +185,9 @@ class Home extends CI_Controller{
         }
         if ($this->student->loggedin){
             //load data
+            $this->load->model("log");
+            $this->log->load($this->input->get('id'));
+            $data['entries'] = $this->log->entries;
             $data['alive'] = true;
             $this->load->view("log_view",$data);
         }else{
