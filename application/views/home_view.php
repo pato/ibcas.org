@@ -33,6 +33,7 @@ function section($section){
 <head>
     <title>IB CAS Organizer</title>
     <link rel="stylesheet" href="/css/style.php" type="text/css"/>
+    <link href='/favicon.ico' rel='shortcut icon'/>
 </head>
 <body>
 <center>
