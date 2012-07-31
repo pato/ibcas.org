@@ -9,8 +9,8 @@ Under your account you can:
 +Create and manage your events for Creativity, Action, and Service individually
 +Track your progress in each of the sections, as well as overall
 +Upload your goal forms and reflections to our secure servers
-+Keep track of your log online
++Keep track of your logs online
 +Access your files from any computer with internet connection
-+Export your log as a PDF file, and download all documents with one click!
++Export your logs as PDF files, and download all documents with one click!
 
 -Pato Lankenau
