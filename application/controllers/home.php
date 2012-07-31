@@ -9,9 +9,10 @@
  * May 10 - Created account management page
  * May 13 - Created message method, replaced all occurences
  * May 15 - Created manage page, event page for handling creation, renaming, and deletion of events
+ * July 18 - Create log controller, sends data to log_view
+ * July 29 - Created checking if user owns log, then loads log data; created updateLog, added validation for password change
  *
  * ###################################################################################################
- * @todo create Log editor
  * @todo Create function to escape my characters from input
  * @todo Create check to make sure no two events are named the same
  */
@@ -187,9 +188,27 @@ class Home extends CI_Controller{
             //load data
             $this->load->model("log");
             $this->log->load($this->input->get('id'));
+            if ($this->student->username!==$this->log->owner){die("You don't own this log");}
             $data['entries'] = $this->log->entries;
             $data['alive'] = true;
+            $data['id'] = $this->input->get('id');
             $this->load->view("log_view",$data);
+        }else{
+            redirect('/home/login', 'refresh');
+        }
+    }
+    public function update_log(){
+        $this->load->model("student");
+        if (!isset($_SESSION)) {
+            session_start();
+            $this->student->login($_SESSION['username'],$_SESSION['password']);
+        }
+        if ($this->student->loggedin){
+            $this->load->model("log");
+            $this->log->load($this->input->post('id'));
+            $this->log->updateData();
+            $this->student->updateHours($this->input->post('id'));
+            redirect('/home/log?id='.$this->input->post('id'), 'refresh');
         }else{
             redirect('/home/login', 'refresh');
         }
@@ -332,7 +351,46 @@ class Home extends CI_Controller{
         }
         if ($this->student->loggedin){
             $data['background'] = $this->student->background;
+            $data['username'] = $this->student->username;
+            $data['email'] = $this->student->email;
             $this->load->view("account_view", $data);
+        }else{
+            redirect('/home/login', 'refresh');
+        }
+    }
+    public function changeEmail(){
+        $this->load->model("student");
+        if (!isset($_SESSION)) {
+            session_start();
+            $this->student->login($_SESSION['username'],$_SESSION['password']);
+        }
+        if ($this->student->loggedin){
+            $this->student->setEmail($this->input->post("email"));
+            $this->message("Email changed successfully!", '/home');
+        }else{
+            redirect('/home/login', 'refresh');
+        }
+    }
+    public function changePassword(){
+        $this->load->model("student");
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('password1', 'Password', 'required|min_length[5]|matches[repassword]');
+        $this->form_validation->set_rules('repassword', 'Password Confirmation', 'required');
+        $this->form_validation->set_error_delimiters('<err>', '</err>');
+        if (!isset($_SESSION)) {
+            session_start();
+            $this->student->login($_SESSION['username'],$_SESSION['password']);
+        }
+        if ($this->student->loggedin){
+            if ($this->form_validation->run() == FALSE){
+                $data['background'] = $this->student->background;
+                $data['username'] = $this->student->username;
+                $data['email'] = $this->student->email;
+                $this->load->view('account_view', $data);
+            }else{
+                $this->student->setPassword($this->input->post("repassword"));
+                $this->message("Password changed successfully!", '/home/logout');
+            }
         }else{
             redirect('/home/login', 'refresh');
         }
@@ -358,7 +416,6 @@ class Home extends CI_Controller{
         }
         if ($this->student->loggedin){
             //code goes here
-            
         }else{
             redirect('/home/login', 'refresh');
         }
