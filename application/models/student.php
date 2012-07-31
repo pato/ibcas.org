@@ -6,9 +6,9 @@
  * May 6 - Added deleteReflection and addReflections, as well added next url parameter for message_view
  * May 12 - Fixed signup to create example events in all categories
  * May 15 - Created addEvent, deleteEvent, renameEvent
+ * July 29 - Added updateHours which checks the log hours and updates the entry
  *
  * ###################################################################################################
- * @todo make log id when new events are added
  */
 class Student extends CI_Model{
     var $username = "";
@@ -55,6 +55,14 @@ class Student extends CI_Model{
     }
     function setBackground($newbackground){
         $this->background = $newbackground;
+        $this->saveData();
+    }
+    function setEmail($newemail){
+        $this->email = $newemail;
+        $this->saveData();
+    }
+    function setPassword($newpassword){
+        $this->password = $newpassword;
         $this->saveData();
     }
     function getBackground(){
@@ -122,13 +130,16 @@ class Student extends CI_Model{
         $this->saveData();
     }
     function addEvent($type, $title){
+        $data = array('owner' => $this->username);
+	$this->db->insert('logs', $data);
+        $logid = $this->db->insert_id();
         if ($type=="Creativity"){
             array_push($this->creativity['events'],
                 array(
                     'title'=>$title,
                     'goal'=>"null",
                     'reflections'=>array("null"),
-                    'logid'=>124,
+                    'logid'=>$logid,
                     'hours'=>0
                 ));
         }else if ($type=="Action"){
@@ -137,7 +148,7 @@ class Student extends CI_Model{
                     'title'=>$title,
                     'goal'=>"null",
                     'reflections'=>array("null"),
-                    'logid'=>124,
+                    'logid'=>$logid,
                     'hours'=>0
                 ));
         }else if ($type=="Service"){
@@ -146,11 +157,13 @@ class Student extends CI_Model{
                     'title'=>$title,
                     'goal'=>"null",
                     'reflections'=>array("null"),
-                    'logid'=>124,
+                    'logid'=>$logid,
                     'hours'=>0
                 ));
         }
+        
         $this->saveData();
+        
     }
     function deleteGoalForm($type, $title){
         if ($type=="creativity"){
@@ -248,6 +261,43 @@ class Student extends CI_Model{
                 }
             }
         }
+        $this->saveData();
+    }
+    function updateHours($logid){
+        foreach ($this->creativity['events'] as &$event){
+            if ($event['logid']==$logid){
+                $this->db->where('id',$logid);
+                $query = $this->db->get('logs');
+                if ($query->num_rows() > 0){
+                    foreach ($query->result() as $row){
+                        $event['hours'] = $row->hours;
+                    }
+                }
+            }
+        }
+        foreach ($this->action['events'] as &$event){
+            if ($event['logid']==$logid){
+                $this->db->where('id',$logid);
+                $query = $this->db->get('logs');
+                if ($query->num_rows() > 0){
+                    foreach ($query->result() as $row){
+                        $event['hours'] = $row->hours;
+                    }
+                }
+            }
+        }
+        foreach ($this->service['events'] as &$event){
+            if ($event['logid']==$logid){
+                $this->db->where('id',$logid);
+                $query = $this->db->get('logs');
+                if ($query->num_rows() > 0){
+                    foreach ($query->result() as $row){
+                        $event['hours'] = $row->hours;
+                    }
+                }
+            }
+        }
+        $this->updateTotal();
         $this->saveData();
     }
     function updateTotal(){
@@ -458,6 +508,8 @@ class Student extends CI_Model{
         //Update on MySQL
         $this->db->where('id',$this->id);
         $data = array(
+            'email' => $this->email,
+            'password' => $this->password,
             'creativity' => $this->creativitytext,
             'action' => $this->actiontext,
             'service' => $this->servicetext,
@@ -465,6 +517,5 @@ class Student extends CI_Model{
         );
         $this->db->update('users',$data);
     }
-
 }
 ?>
