@@ -12,6 +12,7 @@
 <head>
     <title>IB CAS Organizer</title>
     <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+    <link href='../favicon.ico' rel='shortcut icon'/>
 </head>
 <body>
 <center>
