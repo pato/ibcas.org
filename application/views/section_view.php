@@ -9,7 +9,6 @@
  * May 18 - Added link to logid
  *
  * ##################################################################################################
- * @TODO - display link to event logs
  */
 function URL(){
     return "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
