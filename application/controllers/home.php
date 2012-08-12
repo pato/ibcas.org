@@ -408,6 +408,49 @@ class Home extends CI_Controller{
             redirect('/home/login', 'refresh');
         }
     }
+    public function export(){
+        $this->load->model("student");
+        if (!isset($_SESSION)) {
+            session_start();
+            $this->student->login($_SESSION['username'],$_SESSION['password']);
+        }
+        if ($this->student->loggedin){
+            $zip = new ZipArchive;
+            $file = "CAS.zip";
+            $res = $zip->open($file, ZipArchive::CREATE);
+
+            foreach (array($this->student->creativity, $this->student->action, $this->student->service) as $current){
+                //echo "##".$current['name']."##<br>";
+                $zip->addEmptyDir($current['name']);
+                foreach ($current['events'] as $event){
+                    $ext = '.'.end(explode('.', 'files/'.$event["goal"]));
+                    if (file_exists('files/'.$event["goal"]))
+                        $zip->addFile('files/'.$event["goal"], $current['name'].'/'.$event['title'].'/Goalform'.$ext);
+                    $i = 1;
+                    //echo "Event: ".$event['title']."<br>";
+                    //echo "Goalform: ".$event['goal']."<br>";
+                    //echo "Reflections: <br>";
+                    foreach ($event['reflections'] as $reflection){
+                        //echo "->".$reflection."<br>";
+                        $ext = '.'.end(explode('.', 'files/'.$reflection));
+                        if (file_exists('files/'.$reflection))
+                            $zip->addFile('files/'.$reflection, $current['name'].'/'.$event['title'].'/Reflection '.$i++.$ext);
+                    }
+                }
+            }
+            
+            $zip->close();
+
+            header("Content-Type: application/zip");
+            header("Content-Length: " . filesize($file));
+            header("Content-Disposition: attachment; filename=\"{$file}\"");
+            readfile($file);
+            unlink($file);
+
+        }else{
+            redirect('/home/login', 'refresh');
+        }
+    }
     public function manage_events(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
