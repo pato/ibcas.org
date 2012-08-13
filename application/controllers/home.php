@@ -424,10 +424,12 @@ class Home extends CI_Controller{
             redirect('/home/login', 'refresh');
         }
     }
-    public function makelog(){
+    public function makelog($save = false, $id){
         $logid = $this->input->get("id");
-        if (!isset($_GET['id']))
-                redirect('/home', 'refresh');
+        if (!isset($_GET['id']) && $save == false)
+            redirect('/home', 'refresh');
+        else if (!isset($_GET['id']) && $save = true)
+            $logid = $id;
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
@@ -437,7 +439,7 @@ class Home extends CI_Controller{
             require_once 'phpword/PHPWord.php';
             $this->load->model("log");
             $this->log->load($logid);
-            if ($this->student->username!==$this->log->owner){die("You don't own this log");}
+            if ($this->student->username!==$this->log->owner){die("You don't own this log logid: ".$logid);}
             $PHPWord = new PHPWord();
             $section = $PHPWord->createSection();
             $table = $section->addTable();
@@ -503,10 +505,19 @@ class Home extends CI_Controller{
 
             $filename = $this->student->username."_log(".$this->log->hours." hours)";
             $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
-            header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="'.$filename.'.docx"');
-            header('Cache-Control: max-age=0');
-            $objWriter->save('php://output');
+
+
+            if ($save){
+                //$objWriter->save('files/temp/'.$logid.'.docx"');
+                //$objWriter->save('php://output');
+                $objWriter->save('files/templog'.$logid.'.docx');
+                return 'files/templog'.$logid.'.docx';
+            }else{
+                header('Content-Type: application/vnd.ms-word');
+                header('Content-Disposition: attachment;filename="'.$filename.'.docx"');
+                header('Cache-Control: max-age=0');
+                $objWriter->save('php://output');
+            }
         }else{
             redirect('/home/login', 'refresh');
         }
@@ -517,24 +528,30 @@ class Home extends CI_Controller{
             session_start();
             $this->student->login($_SESSION['username'],$_SESSION['password']);
         }
+        $logs = array();
         if ($this->student->loggedin){
+            foreach (array($this->student->creativity, $this->student->action, $this->student->service) as $current){
+                foreach ($current['events'] as $event){
+                    array_push($logs,$this->makelog(true, $event['logid']));
+                }
+            }
             $zip = new ZipArchive;
             $file = "CAS.zip";
             $res = $zip->open($file, ZipArchive::CREATE);
 
             foreach (array($this->student->creativity, $this->student->action, $this->student->service) as $current){
-                //echo "##".$current['name']."##<br>";
+//                echo "##".$current['name']."##<br>";
                 $zip->addEmptyDir($current['name']);
                 foreach ($current['events'] as $event){
                     $ext = '.'.end(explode('.', 'files/'.$event["goal"]));
                     if (file_exists('files/'.$event["goal"]))
                         $zip->addFile('files/'.$event["goal"], $current['name'].'/'.$event['title'].'/Goalform'.$ext);
+
+                    if ($event['logid'] !== ""){
+                        $zip->addFile('files/templog'.$event['logid'].'.docx"',$current['name'].'/'.$event['title'].'/Log.docx');
+                    }
                     $i = 1;
-                    //echo "Event: ".$event['title']."<br>";
-                    //echo "Goalform: ".$event['goal']."<br>";
-                    //echo "Reflections: <br>";
                     foreach ($event['reflections'] as $reflection){
-                        //echo "->".$reflection."<br>";
                         $ext = '.'.end(explode('.', 'files/'.$reflection));
                         if (file_exists('files/'.$reflection))
                             $zip->addFile('files/'.$reflection, $current['name'].'/'.$event['title'].'/Reflection '.$i++.$ext);
@@ -549,7 +566,6 @@ class Home extends CI_Controller{
             header("Content-Disposition: attachment; filename=\"{$file}\"");
             readfile($file);
             unlink($file);
-
         }else{
             redirect('/home/login', 'refresh');
         }
