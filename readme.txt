@@ -11,6 +11,7 @@ Under your account you can:
 +Upload your goal forms and reflections to our secure servers
 +Keep track of your logs online
 +Access your files from any computer with internet connection
-+Export your logs as PDF files, and download all documents with one click!
++Export your logs as word files
++Export all your event files and information with one click!
 
 -Pato Lankenau
