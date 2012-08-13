@@ -83,7 +83,10 @@ $("#showuploadgoalform<?=$y?>").fancybox({
                     <?
                     endforeach;
                     ?>
-                    <br><a href="/home/log?id=<?=$event['logid']?>">[Log]</a>
+                    <br>
+                    <p>Log:</p>
+                    <a href="/home/log?id=<?=$event['logid']?>">[Edit]</a>
+                    <a href="/home/makelog?id=<?=$event['logid']?>">[Download]</a>
             </div>
         <?php endforeach; ?>
         <?php $this->load->view("footer"); ?>

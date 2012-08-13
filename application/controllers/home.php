@@ -15,6 +15,8 @@
  * ###################################################################################################
  * @todo Create function to escape my characters from input
  * @todo Create check to make sure no two events are named the same
+ * @todo Add event name to log
+ * @todo Add real name, candidate number to student
  */
 class Home extends CI_Controller{
     private function message($m, $u, $a=true){
@@ -325,7 +327,21 @@ class Home extends CI_Controller{
         }
     }
     public function sandbox(){
-        echo "http://".$_SERVER['HTTP_HOST'];
+        $this->makelog(1);
+        /*
+        require_once 'phpword/PHPWord.php';
+        $PHPWord = new PHPWord();
+        $template = $PHPWord->loadTemplate('phpword/templates/c_log.doc');
+        $template->setValue('Name', 'Patricio');
+        $template->setValue('Total', '32 hours');
+        $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
+        //$template->save("log.docx");
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="table.docx"');
+        header('Cache-Control: max-age=0');
+        $objWriter->save('php://output');
+         * 
+         */
     }
     public function bg(){
         $this->load->model("student");
@@ -404,6 +420,93 @@ class Home extends CI_Controller{
         if ($this->student->loggedin){
             $this->student->setBackground($this->input->get("id"));
             setcookie("bg",$this->student->getBackground());
+        }else{
+            redirect('/home/login', 'refresh');
+        }
+    }
+    public function makelog(){
+        $logid = $this->input->get("id");
+        if (!isset($_GET['id']))
+                redirect('/home', 'refresh');
+        $this->load->model("student");
+        if (!isset($_SESSION)) {
+            session_start();
+            $this->student->login($_SESSION['username'],$_SESSION['password']);
+        }
+        if ($this->student->loggedin){
+            require_once 'phpword/PHPWord.php';
+            $this->load->model("log");
+            $this->log->load($logid);
+            if ($this->student->username!==$this->log->owner){die("You don't own this log");}
+            $PHPWord = new PHPWord();
+            $section = $PHPWord->createSection();
+            $table = $section->addTable();
+            
+            $headers = array("Activity","Date","Time","Hours");
+
+            $cellStyle = array(
+                'borderRightSize'=>'1',
+                'borderLeftSize'=>'1',
+                'borderTopSize'=>'1',
+                'borderBottomSize'=>'1',
+            );
+
+            $table->addRow();
+            $table->addCell(1750)->addText("Hour Log", array('name'=>'Tahoma', 'size'=>16, 'bold'=>true));
+
+            $table->addRow();
+            $size = 4000;
+            $table->addCell($size)->addText("Candidate Name:");
+            $table->addCell($size)->addText($this->student->email); //TODO make real name
+
+            $table->addRow();
+            $table->addCell($size)->addText("Candidate Number:");
+            $table->addCell($size)->addText($this->student->username); //TODO add candidate number
+
+            $table->addCell($size)->addText("School Code:");
+            $table->addCell($size)->addText("00000"); //TODO add school code
+
+            $table->addRow();
+            foreach ($headers as $header)
+                $table->addCell(1750, $cellStyle)->addText($header, array('bold'=>true));
+
+
+            $size = 1750;
+            $lastdate = "";
+            foreach ($this->log->entries as $entry){
+                $table->addRow();
+                $table->addCell($size, $cellStyle)->addText($entry['title']);
+                $table->addCell($size, $cellStyle)->addText($entry['date']);
+                $table->addCell($size, $cellStyle)->addText($entry['time']);
+                $table->addCell($size, $cellStyle)->addText($entry['hours']);
+                $lastdate = $entry['date'];
+            }
+
+            $table->addRow();
+            $table->addCell(10);
+            $table->addRow();
+            $size = 4000;
+            $table->addCell($size)->addText("Total Hours:", array('bold'=>true));
+            $table->addCell($size)->addText($this->log->hours. " hours");
+
+            $table->addRow();
+            $table->addCell(10);
+            $table->addRow();
+            $table->addCell($size)->addText("Supervisor Signature:", array('bold'=>true));
+            $table->addCell($size)->addText("______________________");
+            $table->addCell($size)->addText("Date:", array('bold'=>true));
+            $table->addCell($size)->addText($lastdate);
+
+            $table->addRow();
+            $table->addCell($size)->addText("Candidate Signature:", array('bold'=>true));
+            $table->addCell($size)->addText("______________________");
+
+            $filename = $this->student->username."_log(".$this->log->hours." hours)";
+            $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="'.$filename.'.docx"');
+            header('Cache-Control: max-age=0');
+            $objWriter->save('php://output');
         }else{
             redirect('/home/login', 'refresh');
         }
