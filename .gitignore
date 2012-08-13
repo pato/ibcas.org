@@ -10,6 +10,7 @@
 .metadata
 bin/
 tmp/
+files/*
 *.tmp
 *.bak
 *.swp
