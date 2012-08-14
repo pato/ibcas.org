@@ -11,6 +11,7 @@
  * May 15 - Created manage page, event page for handling creation, renaming, and deletion of events
  * July 18 - Create log controller, sends data to log_view
  * July 29 - Created checking if user owns log, then loads log data; created updateLog, added validation for password change
+ * August 14 - deleteGoalForm and deleteReflection now check to see if file exists before calling unlink()
  *
  * ###################################################################################################
  * @todo Create function to escape my characters from input
@@ -226,7 +227,8 @@ class Home extends CI_Controller{
             $type = $this->input->post('event_type');
             $title = $this->input->post('event_title');
             $this->student->deleteGoalForm($type, $title);
-            unlink("files/".$file);
+            if (file_exists("files/".$file))
+				unlink("files/".$file);
             $this->message("Goal form deleted!",$this->input->post('url'));
         }else{
             redirect('/home/login', 'refresh');
@@ -244,7 +246,8 @@ class Home extends CI_Controller{
             $title = $this->input->post('event_title');
             $num = $this->input->post('number');
             $this->student->deleteReflection($type, $title, $num);
-            unlink("files/".$file);
+            if (file_exists("files/".$file))
+				unlink("files/".$file);
             $this->message("Reflection deleted!",$this->input->post('url'));
         }else{
             redirect('/home/login', 'refresh');
