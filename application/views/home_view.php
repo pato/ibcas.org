@@ -4,7 +4,7 @@
  * April 15 - Created page, sections
  * April 22 - Added support for new data model
  * May 15 - Added doctype, allows progressbars to work
- * August 14 - Progress bars now change color depending on progress
+ * August 14 - Progress bars now change color depending on progress, limit progress to 100
  *
  * ###################################################################################################
  * +
@@ -19,6 +19,10 @@ function section($section){
         echo '<a href="/home/section?id=2">';
     }
 	$progress = 100*($section[1]/50);
+        if ($progress>100){
+            $progress = 100;
+            $color = "";
+        }
 	if ($progress>70){
 		$color = "";
 	}else if ($progress>35){
