@@ -1,0 +1,76 @@
+home.php
+ * April 15 - Created page
+ * April 22 - Added support for new data model, changed section data parameter
+ * April 23 - Created login, signup, and logout pages
+ * April 24 - Added check for menu if logged in or not
+ * May 6 - Added sandbox, as well as form handlers for deleting and adding of reflections, added background
+ * May 10 - Created account management page
+ * May 13 - Created message method, replaced all occurences
+ * May 15 - Created manage page, event page for handling creation, renaming, and deletion of events
+ * July 18 - Create log controller, sends data to log_view
+ * July 29 - Created checking if user owns log, then loads log data; created updateLog, added validation for password change
+ * August 14 - deleteGoalForm and deleteReflection now check to see if file exists before calling unlink()
+student.php
+ * April 22 - Created Model
+ * April 23 - Created loggedin variable, to check if user authenticated, added session mnagement
+ * May 6 - Added deleteReflection and addReflections, as well added next url parameter for message_view
+ * May 12 - Fixed signup to create example events in all categories
+ * May 15 - Created addEvent, deleteEvent, renameEvent
+ * July 29 - Added updateHours which checks the log hours and updates the entry
+log.php
+ * May 18 - Created Model
+ * July 28 - Added function to create fakeData and build the array
+ * July 29 - Added saving/loading/updating of data from/to mySQL datebase
+student.php
+ * April 22 - Created Model
+ * April 23 - Created loggedin variable, to check if user authenticated, added session mnagement
+ * May 6 - Added deleteReflection and addReflections, as well added next url parameter for message_view
+ * May 12 - Fixed signup to create example events in all categories
+ * May 15 - Created addEvent, deleteEvent, renameEvent
+ * July 29 - Added updateHours which checks the log hours and updates the entry
+log_view.php
+ * May 18, 2012 - Created page
+ * July 28 - Create table based on log data, each entry is its own form
+ * July 29 - Created on big form for all entires, count of entires, as well as 5 empty entries at the bottom, added tablecloth
+account_view.php
+ * May 10 - Created page, allows changing of backgrounds
+ * July 29 - Added settings for email and password, validation for forms
+section_view.php
+ * April 15 - Created page
+ * April 16 - Added file section to every event
+ * April 17 - Create jquery to hide files content
+ * April 24 - Removed the files from section view, linked to event viewer, added support for goal forms
+ * May 6 - Added upload/delete of reflections, added extra space between events
+ * May 18 - Added link to logid
+message_view.php
+ * April 24 - Created page, added redirect functionality
+ * May 14 - Removed menu, redundant feature
+manage_view.php
+ * May 15, 2012 - Created page, encode function, rename, delete, add event
+event_view.php
+ * April 24 - Created Page
+home_view.php
+ * April 15 - Created page, sections
+ * April 22 - Added support for new data model
+ * May 15 - Added doctype, allows progressbars to work
+ * August 14 - Progress bars now change color depending on progress
+login_view.php
+ * April 23 - Created view
+
+April 15 - 6 hours
+April 22 - 3 hours
+April 23 - 4 hours
+April 24 - 5 hours
+May 6 - 5 hours
+May 10 - 2 hours
+May 13 - 1 hour
+May 15 - 2 hours
+Jun 17 - 1 hour
+Jun 18 - 3 hours
+Jun 21 - 2 hour
+Jun 22 - 5 hour
+July 29 - 4 hours
+Jul 31 - 10 hours
+Aug 12 - 3 hours
+Aug 13 - 1 hour
+Aug 14 - 2 hours
