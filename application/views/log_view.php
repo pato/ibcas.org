@@ -35,7 +35,7 @@
         <?php $this->load->view("menu"); ?>
         <div class="container">
             <h3>Entries</h3>
-            <form action="/home/update_log" method="POST">
+            <form action="/anizer/update_log" method="POST">
             <table cellspacing="0" cellpadding="0">
                 <tr>
                     <th>Activity</th>

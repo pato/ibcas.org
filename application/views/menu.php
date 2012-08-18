@@ -14,8 +14,8 @@
     <?php
     if (isset($alive)&&$alive==true){
     ?>
-    <a href="/home">Home</a> | <a href="/home/manage">Manage Events</a> | <a href="/home/section?id=0">Creativity</a> | <a href="/home/section?id=1">Action</a> | <a href="/home/section?id=2">Service</a> | <a href="/home/account">Account</a> | <a href="/home/logout">Logout</a>
+    <a href="/anizer">Home</a> | <a href="/anizer/manage">Manage Events</a> | <a href="/anizer/section?id=0">Creativity</a> | <a href="/anizer/section?id=1">Action</a> | <a href="/anizer/section?id=2">Service</a> | <a href="/anizer/account">Account</a> | <a href="/anizer/logout">Logout</a>
     <?php }else{ ?>
-    <a href="/home/login">Login</a> | <a href="/home/signup">Signup</a>
+    <a href="/anizer/login">Login</a> | <a href="/anizer/signup">Signup</a>
     <?php } ?>
 </div>

@@ -85,8 +85,8 @@ $("#showuploadgoalform<?=$y?>").fancybox({
                     ?>
                     <br>
                     <p>Log:</p>
-                    <a href="/home/log?id=<?=$event['logid']?>">[Edit]</a>
-                    <a href="/home/makelog?id=<?=$event['logid']?>">[Download]</a>
+                    <a href="/anizer/log?id=<?=$event['logid']?>">[Edit]</a>
+                    <a href="/anizer/makelog?id=<?=$event['logid']?>">[Download]</a>
             </div>
         <?php endforeach; ?>
         <?php $this->load->view("footer"); ?>
@@ -102,7 +102,7 @@ $("#showuploadgoalform<?=$y?>").fancybox({
     ?>
     <div id="uploadgoalform<?=$y?>" style="width:400px;height:100px;overflow:auto;">
         <p>Please select file to upload</p>
-        <?=form_open_multipart('home/upload_goal')?>
+        <?=form_open_multipart('anizer/upload_goal')?>
         <input type="file" name="userfile" size="40"/>
         <input type="hidden" name="event_type" value="<?=$sname?>">
         <input type="hidden" name="event_title" value="<?=$event['title']?>">
@@ -111,7 +111,7 @@ $("#showuploadgoalform<?=$y?>").fancybox({
         </form>
     </div>
     <div id="deletegoalform<?=$y?>" style="width:400px;height:100px;overflow:auto;">
-        <?=form_open('home/delete_goal')."\n"?>
+        <?=form_open('anizer/delete_goal')."\n"?>
         <p>Are you sure you want to delete "<?=$event['goal']?>" ?</p>
         <input type="hidden" name="event_file" value="<?=$event['goal']?>">
         <input type="hidden" name="event_type" value="<?=$sname?>">
@@ -122,7 +122,7 @@ $("#showuploadgoalform<?=$y?>").fancybox({
     </div>
     <div id="uploadreflection<?=$y?>" style="width:400px;height:100px;overflow:auto;">
         <p>Please select file to upload</p>
-        <?=form_open_multipart('home/upload_reflection')?>
+        <?=form_open_multipart('anizer/upload_reflection')?>
         <input type="file" name="userfile" size="40"/>
         <input type="hidden" name="event_type" value="<?=$sname?>">
         <input type="hidden" name="event_title" value="<?=$event['title']?>">
@@ -135,7 +135,7 @@ $("#showuploadgoalform<?=$y?>").fancybox({
     foreach ($event['reflections'] as $reflection):
     $z++; ?>
     <div id="deletereflection<?=$y.'a'.$z?>" style="width:400px;height:100px;overflow:auto;">
-            <?=form_open('home/delete_reflection')."\n"?>
+            <?=form_open('anizer/delete_reflection')."\n"?>
             <p>Are you sure you want to delete "<?=$reflection?>" ?</p>
             <input type="hidden" name="event_file" value="<?=$reflection?>">
             <input type="hidden" name="event_type" value="<?=$sname?>">

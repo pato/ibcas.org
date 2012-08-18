@@ -24,7 +24,7 @@
         <div class="container">
             <?php //echo validation_errors(); ?>
 
-            <?php echo form_open('home/signup'); ?>
+            <?php echo form_open('anizer/signup'); ?>
             
             <table align="center">
                 <tr>

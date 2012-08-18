@@ -12,11 +12,11 @@
 
 function section($section){
     if ($section[0]==0){
-        echo '<a href="/home/section?id=0">';
+        echo '<a href="/anizer/section?id=0">';
     }else if ($section[0]==1){
-        echo '<a href="/home/section?id=1">';
+        echo '<a href="/anizer/section?id=1">';
     }else{
-        echo '<a href="/home/section?id=2">';
+        echo '<a href="/anizer/section?id=2">';
     }
 	$progress = 100*($section[1]/50);
         if ($progress>100){

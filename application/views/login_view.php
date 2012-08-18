@@ -27,7 +27,7 @@
             if (isset($msg)){
                 echo "<err>".$msg."</err>";
             }
-            echo form_open('home/login');
+            echo form_open('anizer/login');
             ?>
 
             <table align="center">

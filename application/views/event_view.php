@@ -50,7 +50,7 @@
 </div>
 <div style="display: none;">
     <div id="uploadgoalform" style="width:400px;height:100px;overflow:auto;">
-        <?=form_open_multipart('home/upload_goal')?>
+        <?=form_open_multipart('anizer/upload_goal')?>
         <input type="file" name="userfile" size="40"/>
         <input type="hidden" name="event_type" value="<?=$event['type']?>">
         <input type="hidden" name="event_title" value="<?=$event['title']?>">
@@ -58,7 +58,7 @@
         </form>
     </div>
     <div id="deletegoalform" style="width:400px;height:100px;overflow:auto;">
-        <?=form_open('home/delete_goal')."\n"?>
+        <?=form_open('anizer/delete_goal')."\n"?>
         Are you sure you want to delete the file?
         <input type="hidden" name="event_file" value="<?=$event['goal']?>">
         <input type="hidden" name="event_type" value="<?=$event['type']?>">

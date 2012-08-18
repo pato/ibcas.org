@@ -19,7 +19,7 @@
  * @todo Add event name to log
  * @todo Add real name, candidate number to student
  */
-class Home extends CI_Controller{
+class Anizer extends CI_Controller{
     private function message($m, $u, $a=true){
         $data['msg'] = $m;
         $data['url'] = $u;
@@ -33,7 +33,9 @@ class Home extends CI_Controller{
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $data['creativity'] = array(0,$this->student->creativity['totalHours']);
@@ -43,16 +45,18 @@ class Home extends CI_Controller{
 
             setcookie("bg",$this->student->getBackground());
             
-            $this->load->view("home_view",$data);
+            $this->load->view("/home_view",$data);
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function section(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             if ($_GET['id']==0){
@@ -68,46 +72,50 @@ class Home extends CI_Controller{
             $data['alive'] = true;
             $this->load->view("section_view",$data);
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function manage(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $data['sections'] = array($this->student->creativity,$this->student->action,$this->student->service);
             $data['alive'] = true;
             $this->load->view("manage_view",$data);
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function events(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
-        if (!$this->student->loggedin){redirect('/home/login', 'refresh');}
+        if (!$this->student->loggedin){redirect('/anizer/login', 'refresh');}
 
         $task = explode("(^)", $this->decode($_GET['v']));
         if ($task[0]=="rename"){
             $data['action']="Rename";
             $data['section']=$task[1];
             $data['old']=$task[2];
-            $data['url']="home/renameEvent";
+            $data['url']="anizer/renameEvent";
             $this->load->view("rename_view", $data);
         }else if($task[0]=="delete"){
             $this->student->deleteEvent($task[1],$task[2]);
-            $this->message("Event deleted!", "/home/manage");
+            $this->message("Event deleted!", "/anizer/manage");
         }else if($task[0]=="add"){
             $data['action']="Add";
             $data['section']=$task[1];
             $data['old']="";
-            $data['url']="home/addEvent";
+            $data['url']="anizer/addEvent";
             $this->load->view("rename_view", $data);
         }
     }
@@ -115,31 +123,35 @@ class Home extends CI_Controller{
         $this->load->model("student");
         if (!isset($_SESSION)){
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $section = $this->input->post('section');
             $name = $this->input->post('name');
             $this->student->addEvent($section, $name);
-            $this->message("Event added!","/home/manage");
+            $this->message("Event added!","/anizer/manage");
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function renameEvent(){
         $this->load->model("student");
         if (!isset($_SESSION)){
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $section = $this->input->post('section');
             $old = $this->input->post('old');
             $new = $this->input->post('name');
             $this->student->renameEvent($section, $old, $new);
-            $this->message("Event renamed!","/home/manage");
+            $this->message("Event renamed!","/anizer/manage");
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function signup(){
@@ -155,7 +167,7 @@ class Home extends CI_Controller{
             $this->load->view('signup_view');
         }else{
             $this->student->signup();
-            $this->message("Signed up successfully!","/home/login",false);
+            $this->message("Signed up successfully!","/anizer/login",false);
         }
     }
     public function login(){
@@ -164,12 +176,21 @@ class Home extends CI_Controller{
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_error_delimiters('<err>', '</err>');
+        if (!isset($_SESSION)){
+            session_start();
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
+        }
+        if ($this->student->loggedin){
+            redirect('/anizer/', 'refresh');
+        }
         if ($this->form_validation->run() == FALSE){
             $this->load->view('login_view');
         }else{
             $this->student->loginForm();
             if ($this->student->loggedin){
-                $this->message("Logged in successfully!","/home", false);
+                $this->message("Logged in successfully!","/anizer/", false);
             }else{
                 $data['msg'] =  "Could not authenticate";
                 $this->load->view('login_view',$data);
@@ -179,13 +200,15 @@ class Home extends CI_Controller{
     public function logout(){
         session_start();
         session_destroy();
-        $this->message("Logged out successfully!","/home/login",false);
+        $this->message("Logged out successfully!","/anizer/login",false);
     }
     public function log(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             //load data
@@ -197,30 +220,34 @@ class Home extends CI_Controller{
             $data['id'] = $this->input->get('id');
             $this->load->view("log_view",$data);
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function update_log(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $this->load->model("log");
             $this->log->load($this->input->post('id'));
             $this->log->updateData();
             $this->student->updateHours($this->input->post('id'));
-            redirect('/home/log?id='.$this->input->post('id'), 'refresh');
+            redirect('/anizer/log?id='.$this->input->post('id'), 'refresh');
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function delete_goal(){
         $this->load->model("student");
         if (!isset($_SESSION)){
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $file = $this->input->post('event_file');
@@ -231,14 +258,16 @@ class Home extends CI_Controller{
 				unlink("files/".$file);
             $this->message("Goal form deleted!",$this->input->post('url'));
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function delete_reflection(){
         $this->load->model("student");
         if (!isset($_SESSION)){
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $file = $this->input->post('event_file');
@@ -250,14 +279,16 @@ class Home extends CI_Controller{
 				unlink("files/".$file);
             $this->message("Reflection deleted!",$this->input->post('url'));
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function upload_goal(){
         $this->load->model("student");
         if (!isset($_SESSION)){
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $config['upload_path'] = './files/';
@@ -281,14 +312,16 @@ class Home extends CI_Controller{
                     $this->message("Uploaded succesfully!",$this->input->post('url'));
             }
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function upload_reflection(){
         $this->load->model("student");
         if (!isset($_SESSION)){
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $config['upload_path'] = './files/';
@@ -312,21 +345,23 @@ class Home extends CI_Controller{
                     $this->message( "Uploaded succesfully!", $this->input->post('url'));
             }
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function event(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $data['event'] = $this->student->creativity['events'][0];
             $data['event']['type']='creativity';
             $this->load->view("event_view",$data);
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function sandbox(){
@@ -350,7 +385,9 @@ class Home extends CI_Controller{
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $this->student->setBackground($this->input->get("id"));
@@ -359,14 +396,16 @@ class Home extends CI_Controller{
             $this->message("Background Changed!", "/");
             
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function account(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $data['background'] = $this->student->background;
@@ -374,20 +413,22 @@ class Home extends CI_Controller{
             $data['email'] = $this->student->email;
             $this->load->view("account_view", $data);
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function changeEmail(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $this->student->setEmail($this->input->post("email"));
-            $this->message("Email changed successfully!", '/home');
+            $this->message("Email changed successfully!", '/anizer/');
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function changePassword(){
@@ -398,7 +439,9 @@ class Home extends CI_Controller{
         $this->form_validation->set_error_delimiters('<err>', '</err>');
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             if ($this->form_validation->run() == FALSE){
@@ -408,35 +451,39 @@ class Home extends CI_Controller{
                 $this->load->view('account_view', $data);
             }else{
                 $this->student->setPassword($this->input->post("repassword"));
-                $this->message("Password changed successfully!", '/home/logout');
+                $this->message("Password changed successfully!", '/anizer/logout');
             }
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function saveAccount(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             $this->student->setBackground($this->input->get("id"));
             setcookie("bg",$this->student->getBackground());
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function makelog($save = false, $id){
         $logid = $this->input->get("id");
         if (!isset($_GET['id']) && $save == false)
-            redirect('/home', 'refresh');
+            redirect('/anizer/', 'refresh');
         else if (!isset($_GET['id']) && $save = true)
             $logid = $id;
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             require_once 'phpword/PHPWord.php';
@@ -522,14 +569,16 @@ class Home extends CI_Controller{
                 $objWriter->save('php://output');
             }
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function export(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         $logs = array();
         if ($this->student->loggedin){
@@ -570,19 +619,21 @@ class Home extends CI_Controller{
             readfile($file);
             unlink($file);
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
     public function manage_events(){
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
-            $this->student->login($_SESSION['username'],$_SESSION['password']);
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
             //code goes here
         }else{
-            redirect('/home/login', 'refresh');
+            redirect('/anizer/login', 'refresh');
         }
     }
 }

@@ -35,12 +35,12 @@ function encode($string){
                 ?>
                     <tr>
                     <td width="500"><p><b><?=$event['title']?></b> (<?=$event['hours']?> Hours)</p></td>
-                    <td><p><a href="/home/events?v=<?=encode("rename(^)".$section['name']."(^)".$event['title']) ?>">[Rename]</a></p></td>
-                    <td><p><a href="/home/events?v=<<?=encode("delete(^)".$section['name']."(^)".$event['title']) ?>">[Delete]</a></p></td>
+                    <td><p><a href="/anizer/events?v=<?=encode("rename(^)".$section['name']."(^)".$event['title']) ?>">[Rename]</a></p></td>
+                    <td><p><a href="/anizer/events?v=<<?=encode("delete(^)".$section['name']."(^)".$event['title']) ?>">[Delete]</a></p></td>
                     </tr>
                 <?php endforeach; ?>
                 </table>
-                <h2><a href="/home/events?v=<?=encode("add(^)".$section['name']) ?>">::Add Event::</a></h2>
+                <h2><a href="/anizer/events?v=<?=encode("add(^)".$section['name']) ?>">::Add Event::</a></h2>
             </div>
     <?php endforeach; ?>
 

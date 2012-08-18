@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'data';
+$db['default']['hostname'] = 'db428225453.db.1and1.com';
+$db['default']['username'] = 'dbo428225453';
+$db['default']['password'] = '123ibcasroot';
+$db['default']['database'] = 'db428225453';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

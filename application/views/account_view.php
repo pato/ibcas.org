@@ -45,7 +45,7 @@
              <h3><a href="#" id="show_es">Settings</a></h3>
              <div id="settings">
                  <h4>Change Email</h4>
-                 <form action="/home/changeEmail" method="POST" id="emailform">
+                 <form action="/anizer/changeEmail" method="POST" id="emailform">
                      <table style="margin-left: auto;margin-right: auto;">
                          <tr>
                              <td>Username:</td>
@@ -61,7 +61,7 @@
                  </form>
                  <?php echo validation_errors(); ?>
                  <h4>Change Password</h4>
-                 <form action="/home/changePassword" method="POST" id="passwordform">
+                 <form action="/anizer/changePassword" method="POST" id="passwordform">
                      <table style="margin-left: auto;margin-right: auto;">
                          <tr>
                              <td>New Password:</td>
@@ -76,7 +76,7 @@
                  </form>
              </div>
         </div>
-        <?=form_open('home/saveAccount')."\n"?>
+        <?=form_open('anizer/saveAccount')."\n"?>
         <div class="container" >
             <h3><a href="#" id="show_bk">Background Select</a></h3>
             <table style="margin-left: auto;margin-right: auto;" id="backgroundselect">
@@ -87,7 +87,7 @@
                             echo '</tr><tr>';
                         }
                         echo '<td>';
-                        echo '<a href="../home/bg?id='.$i.'">';
+                        echo '<a href="../anizer/bg?id='.$i.'">';
                         echo '<div style="background:url(\'../img/bg'.$i.'.gif\') repeat;margin:3px;width:100px; height:100px; border:2px solid;" ><span style="font-size:80px; padding-left:30px;">
                             </span></div>';
                         echo '</a></td>';

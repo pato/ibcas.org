@@ -21,7 +21,7 @@
             <h1><?=$action ?> an Event</h1>
         </div>
         <div class="container">
-            <a href="/home">Home</a> | <a href="/home/manage">Back</a>
+            <a href="/anizer">Home</a> | <a href="/anizer/manage">Back</a>
         </div>
         <div class="container">
             <?=form_open($url)."\n"?>
