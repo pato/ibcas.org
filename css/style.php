@@ -263,3 +263,32 @@ input.register {
     width:71px;
     display: block;
 }
+img {
+    border-color: #7d6b72;
+    border-style: solid;
+    border-width: 5px;
+}
+div.features{
+    padding-left: 50px;
+}
+div.wrapper{
+    float: center; /* important */
+    position:relative; /* important(so we can absolutely position the description div */
+}
+div.description{
+    position:absolute; /* absolute position (so we can position it where we want)*/
+    bottom: 0px; /* position will be on bottom */
+    left:0px;
+    width:100%;
+    /* styling bellow */
+    background-color:black;
+    font-family: 'tahoma';
+    font-size:15px;
+    color:white;
+    opacity:0.8; /* transparency */
+    filter:alpha(opacity=80); /* IE transparency */
+}
+p.description_content{
+    padding:5px;
+    margin:0px;
+} 

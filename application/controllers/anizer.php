@@ -509,7 +509,7 @@ class Anizer extends CI_Controller{
             redirect('/anizer/login', 'refresh');
         }
     }
-    public function makelog($save = false, $id){
+    public function makelog($save = false, $id = null){
         $logid = $this->input->get("id");
         if (!isset($_GET['id']) && $save == false)
             redirect('/anizer/', 'refresh');

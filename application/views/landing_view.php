@@ -24,20 +24,47 @@
             <h1>IB CAS Organizer</h1>
         </div>
         <?php $this->load->view("menu"); ?>
-        <div class="container">
-            <p>This is an IB CAS requirements organizer, used to handle all the paperwork and logs that are required for completion of the CAS section of the IB Diploma Programme.</p>
-
-            <code>
-            <p>Features:</p>
-                Create and manage your events for Creativity, Action, and Service individually<br>
-                Track your progress in each of the sections, as well as overall<br>
-                Upload your goal forms and reflections to our secure servers<br>
-                Keep track of your logs online<br>
-                Access your files from any computer with Internet connection<br>
-                Export your logs as word files<br>
-                Export all your event files and information with one click!<br>
-            </code>
+        <div class="container" style="height:700px;">
+            
+                <h2>Features</h2>
+                <div class="features">
+                <table>
+                    <tr>
+                        <td>
+                        <div class='wrapper'>
+                            <img src='../img/overview.png' width="640"/>
+                            <div class='description'>
+                                <p class='description_content'>Track your progress in Creativity, Action, and Service</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <div class='wrapper'>
+                        <img src='../img/manage.png' width="640"/>
+                        <div class='description'>
+                            <p class='description_content'>Create and manage all your events</p>
+                        </div>
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <div class='wrapper'>
+                        <img src='../img/logs.png' width="640"/>
+                        <div class='description'>
+                            <p class='description_content'>Keep track of your logs online</p>
+                        </div>
+                    </div>
+                    </td>
+                </tr>
+                </table>
+            </div>
+            <h2>And much more!</h2>
         </div>
+        <?php //<div class="container" style="height:450px;background:#ffffff url('../img/landing.png') no-repeat;"></div> ?>
+            
         <?php $this->load->view("footer"); ?>
 
     </div>
