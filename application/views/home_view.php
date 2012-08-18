@@ -60,6 +60,15 @@ function section($section){
         </div>
         <?php $this->load->view("menu"); ?>
         <div class="container">
+            <?php /*
+            <h3>Total Progress</h3>
+                <div class="meter">
+                <span style="width: <?=$totalprogress?>%"></span>
+                </div>
+                <p>Total Hours: <?=$totalhours?></p>
+            <h3>Individual Progress</h3>
+             *
+             */ ?>
             <h3>Overview</h3>
             <table class="progress">
                 <tr>
