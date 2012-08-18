@@ -47,7 +47,8 @@ class Anizer extends CI_Controller{
             
             $this->load->view("/home_view",$data);
         }else{
-            redirect('/anizer/login', 'refresh');
+            $this->load->view("/landing_view");
+            //redirect('/anizer/login', 'refresh');
         }
     }
     public function section(){
@@ -230,6 +231,9 @@ class Anizer extends CI_Controller{
         }else{
             redirect('/anizer/login', 'refresh');
         }
+    }
+    public function terms(){
+        $this->load->view('terms_view');
     }
     public function update_log(){
         $this->load->model("student");
