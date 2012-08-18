@@ -10,6 +10,5 @@
 
 ?>
 <div class="container footer">
-    Copyright &copy; 2012 Patricio Lankenau
-    <p style="text-align: right;font-size: 11px;border-top: 1px solid #D0D0D0;line-height: 10px;padding: 0 5px 0 5px;margin: 10px 0 0 0;">Page rendered in <strong>{elapsed_time}</strong> seconds | Memory Usage: <strong>{memory_usage}</strong> </p>
+    Copyright &copy; 2012 Patricio Lankenau | <a href="/anizer/terms">Terms of Service</a>
 </div>
