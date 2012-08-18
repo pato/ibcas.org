@@ -30,6 +30,9 @@ class Anizer extends CI_Controller{
         return base64_decode($string);
     }
     public function index(){
+        if (!strstr(current_url(),"anizer")){
+           redirect('/anizer', 'refresh');
+        }
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
@@ -41,6 +44,10 @@ class Anizer extends CI_Controller{
             $data['creativity'] = array(0,$this->student->creativity['totalHours']);
             $data['action'] = array(1,$this->student->action['totalHours']);
             $data['service'] = array(2,$this->student->service['totalHours']);
+            $data['totalhours'] = ($this->student->creativity['totalHours']>50)?50:$this->student->creativity['totalHours']+
+                    ($this->student->action['totalHours']>50)?50:$this->student->action['totalHours']+
+                    ($this->student->service['totalHours']>50)?50:$this->student->service['totalHours'];
+            $data['totalprogress'] = 100*($data['totalhours']/150);
             $data['alive'] = true;
 
             setcookie("bg",$this->student->getBackground());
