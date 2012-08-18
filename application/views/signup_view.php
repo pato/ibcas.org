@@ -25,7 +25,8 @@
             <?php //echo validation_errors(); ?>
 
             <?php echo form_open('anizer/signup'); ?>
-            
+            <fieldset>
+            <legend>Required</legend>
             <table align="center">
                 <tr>
                     <td align="right">Username: </td>
@@ -47,8 +48,25 @@
                     <td><input type="text" class="input2" name="email" value="<?php echo set_value('email'); ?>" size="50" /></td>
                 </tr>
                 <tr><th colspan="2"><?=form_error('email')?></th></tr>
-                
             </table>
+            </fieldset>
+            <fieldset>
+            <legend>Recommended</legend>
+            <table align="center">
+                <tr>
+                    <td align="right">Full Name: </td>
+                    <td><input type="text" class="input2" name="fullname" value="<?php echo set_value('fullname'); ?>" size="50" /></td>
+                </tr>
+                <tr>
+                    <td align="right">Candidate Number: </td>
+                    <td><input type="text" class="input2" name="candidateid" value="<?php echo set_value('candidateid'); ?>" size="50" /></td>
+                </tr>
+                <tr>
+                    <td align="right">School Code: </td>
+                    <td><input type="text" class="input2" name="school" value="<?php echo set_value('school'); ?>" size="50" /></td>
+                </tr>
+            </table>
+            </fieldset>
             <input type="submit" value="Sign Up" class="register"/>
             </form>
             </div>

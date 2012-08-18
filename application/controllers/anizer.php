@@ -162,7 +162,15 @@ class Anizer extends CI_Controller{
         $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
         $this->form_validation->set_error_delimiters('<err>', '</err>');
-        
+        if (!isset($_SESSION)){
+            session_start();
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
+        }
+        if ($this->student->loggedin){
+            redirect('/anizer/', 'refresh');
+        }
         if ($this->form_validation->run() == FALSE){
             $this->load->view('signup_view');
         }else{
@@ -411,7 +419,25 @@ class Anizer extends CI_Controller{
             $data['background'] = $this->student->background;
             $data['username'] = $this->student->username;
             $data['email'] = $this->student->email;
+            $data['fullname'] = $this->student->fullname;
+            $data['candidateid'] = $this->student->candidateid;
+            $data['school'] = $this->student->school;
             $this->load->view("account_view", $data);
+        }else{
+            redirect('/anizer/login', 'refresh');
+        }
+    }
+    public function changeInfo(){
+        $this->load->model("student");
+        if (!isset($_SESSION)) {
+            session_start();
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
+        }
+        if ($this->student->loggedin){
+            $this->student->changeInfo();
+            $this->message("Information changed successfully!", '/anizer/');
         }else{
             redirect('/anizer/login', 'refresh');
         }
@@ -509,14 +535,14 @@ class Anizer extends CI_Controller{
             $table->addRow();
             $size = 4000;
             $table->addCell($size)->addText("Candidate Name:");
-            $table->addCell($size)->addText($this->student->email); //TODO make real name
+            $table->addCell($size)->addText($this->student->fullname); //TODO make real name
 
             $table->addRow();
             $table->addCell($size)->addText("Candidate Number:");
-            $table->addCell($size)->addText($this->student->username); //TODO add candidate number
+            $table->addCell($size)->addText($this->student->candidateid); //TODO add candidate number
 
             $table->addCell($size)->addText("School Code:");
-            $table->addCell($size)->addText("00000"); //TODO add school code
+            $table->addCell($size)->addText($this->student->school); //TODO add school code
 
             $table->addRow();
             foreach ($headers as $header)

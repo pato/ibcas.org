@@ -15,6 +15,9 @@ class Student extends CI_Model{
     var $password = "";
     var $id = 0;
     var $email = "";
+    var $fullname = "";
+    var $candidateid = "";
+    var $school = "";
     var $creativitytext = "";
     var $actiontext = "";
     var $servicetext = "";
@@ -35,7 +38,10 @@ class Student extends CI_Model{
                 $this->username = $row->username;
                 $this->password = $row->password;
                 $this->email    = $row->email;
-                $this->background = $row->background;
+                $this->fullname = $row->fullname;
+                $this->school   = $row->school;
+                $this->candidateid    = $row->candidateid;
+                $this->background     = $row->background;
                 $this->creativitytext = $row->creativity;
                 $this->actiontext     = $row->action;
                 $this->servicetext    = $row->service;
@@ -61,6 +67,12 @@ class Student extends CI_Model{
         $this->email = $newemail;
         $this->saveData();
     }
+    function changeInfo(){
+        $this->fullname = $this->input->post('fullname');
+        $this->candidateid = $this->input->post('candidateid');
+        $this->school = $this->input->post('school');
+        $this->saveData();
+    }
     function setPassword($newpassword){
         $this->password = $newpassword;
         $this->saveData();
@@ -72,7 +84,10 @@ class Student extends CI_Model{
 	$data = array(
 		'username' => $this->input->post('username'),
 		'password' => $this->input->post('password'),
-		'email' => $this->input->post('email')
+		'email' => $this->input->post('email'),
+                'fullname' => $this->input->post('fullname'),
+                'candidateid' => $this->input->post('candidateid'),
+                'school' => $this->input->post('school')
 	);
 	$this->db->insert('users', $data);
     }
@@ -510,6 +525,9 @@ class Student extends CI_Model{
         $data = array(
             'email' => $this->email,
             'password' => $this->password,
+            'fullname' => $this->fullname,
+            'candidateid' => $this->candidateid,
+            'school' => $this->school,
             'creativity' => $this->creativitytext,
             'action' => $this->actiontext,
             'service' => $this->servicetext,

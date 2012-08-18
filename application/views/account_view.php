@@ -44,6 +44,25 @@
         <div class="container" >
              <h3><a href="#" id="show_es">Settings</a></h3>
              <div id="settings">
+                 <h4>Change Information</h4>
+                 <form action="/anizer/changeInfo" method="POST" id="emailform">
+                     <table style="margin-left: auto;margin-right: auto;">
+                         <tr>
+                             <td>Full Name:</td>
+                            <td><input type="text" class="input2" name="fullname" value="<?=$fullname?>"></td>
+                         </tr>
+                         <tr>
+                             <td>Candidate ID:</td>
+                            <td><input type="text" class="input2" name="candidateid" value="<?=$candidateid?>"></td>
+                         </tr>
+                         <tr>
+                             <td>School Code:</td>
+                            <td><input type="text" class="input2" name="school" value="<?=$school?>"></td>
+                         </tr>
+                         <tr>
+                     </table>
+                 <input type="submit" value="Change" class="login">
+                 </form>
                  <h4>Change Email</h4>
                  <form action="/anizer/changeEmail" method="POST" id="emailform">
                      <table style="margin-left: auto;margin-right: auto;">

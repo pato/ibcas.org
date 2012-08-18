@@ -62,7 +62,7 @@
             </table>
             <input type="hidden" name="id" value="<?=$id?>">
             <input type="hidden" name="count" value="<?=$count?>">
-            <input type="submit" class="btn1" value="Save Changes">
+            <input type="submit" class="login" value="Save">
             </form>
         </div>
         <?php $this->load->view("footer"); ?>
