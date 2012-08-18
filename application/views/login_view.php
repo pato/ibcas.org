@@ -11,8 +11,11 @@
 <html>
 <head>
     <title>IB CAS Organizer</title>
-    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/style.php" type="text/css"/>
     <link href='../favicon.ico' rel='shortcut icon'/>
+    <meta name="description" content="This is an IB CAS requirements organizer, used to handle all the paperwork and logs that are required for completion of the CAS section of the IB Diploma Programme." />
+    <meta name="keywords" content="ib, cas, organizer, international, baccalaureate, manager, agenda, free, diploma, programme, program, logs, paperwork, required, creativity, action, service" />
+    <meta name="author" content="Patricio Lankenau" />
 </head>
 <body>
 <center>

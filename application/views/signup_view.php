@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>IB CAS Organizer</title>
-    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/style.php" type="text/css"/>
 </head>
 <body>
 <center>
@@ -25,8 +25,7 @@
             <?php //echo validation_errors(); ?>
 
             <?php echo form_open('anizer/signup'); ?>
-            <fieldset>
-            <legend>Required</legend>
+            <h4>Required</h4>
             <table align="center">
                 <tr>
                     <td align="right">Username: </td>
@@ -49,9 +48,7 @@
                 </tr>
                 <tr><th colspan="2"><?=form_error('email')?></th></tr>
             </table>
-            </fieldset>
-            <fieldset>
-            <legend>Recommended</legend>
+            <h4>Recommended</h4>
             <table align="center">
                 <tr>
                     <td align="right">Full Name: </td>
@@ -66,7 +63,8 @@
                     <td><input type="text" class="input2" name="school" value="<?php echo set_value('school'); ?>" size="50" /></td>
                 </tr>
             </table>
-            </fieldset>
+            
+            <h4>By signing up you agree to the <a href="terms" target="_blank">terms of service</a></h4>
             <input type="submit" value="Sign Up" class="register"/>
             </form>
             </div>

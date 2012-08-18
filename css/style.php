@@ -7,7 +7,7 @@
  * +
  */
 header("Content-type: text/css");
-$background = $_COOKIE['bg'];
+$background = isset($_COOKIE['bg'])?$_COOKIE['bg']:"3";
 ?>
 
 body,h1,h2,h3,p,quote,small,form,input,ul,li,ol,label{
@@ -105,6 +105,29 @@ h3{
 	-khtml-border-radius: 20px;
 	-webkit-border-radius: 20px;
 	border-radius:20px;
+}
+.legal{
+	margin-top:20px;
+	text-align:left;
+	background:#FFFFFF;
+	border:1px solid #E0E0E0;
+	padding:40px;
+
+	/* Rounded corners */
+	-moz-border-radius:20px;
+	-khtml-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius:20px;
+}
+code{
+    font-family: Consolas, Monaco, Courier New, Courier, monospace;
+    font-size: 12px;
+    background-color: #f9f9f9;
+    border: 1px solid #D0D0D0;
+    color: #002166;
+    display: block;
+    margin: 14px 0 14px 0;
+    padding: 12px 10px 12px 10px;
 }
 .meter {
 	height: 20px;  /* Can be anything */
