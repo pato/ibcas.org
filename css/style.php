@@ -263,7 +263,7 @@ input.register {
     width:71px;
     display: block;
 }
-img {
+.img {
     border-color: #7d6b72;
     border-style: solid;
     border-width: 5px;

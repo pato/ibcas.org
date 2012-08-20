@@ -34,7 +34,7 @@
                     <tr>
                         <td>
                         <div class='wrapper'>
-                            <img src='../img/overview.png' width="640"/>
+                            <img class="img" src='../img/overview.png' width="640"/>
                             <div class='description'>
                                 <p class='description_content'>Track your progress in Creativity, Action, and Service</p>
                             </div>
@@ -44,7 +44,7 @@
                 <tr>
                     <td>
                     <div class='wrapper'>
-                        <img src='../img/manage.png' width="640"/>
+                        <img class="img" src='../img/manage.png' width="640"/>
                         <div class='description'>
                             <p class='description_content'>Create and manage all your events</p>
                         </div>
@@ -54,7 +54,7 @@
                 <tr>
                     <td>
                     <div class='wrapper'>
-                        <img src='../img/logs.png' width="640"/>
+                        <img class="img" src='../img/logs.png' width="640"/>
                         <div class='description'>
                             <p class='description_content'>Keep track of your logs online</p>
                         </div>
