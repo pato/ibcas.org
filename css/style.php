@@ -268,6 +268,15 @@ input.register {
     border-style: solid;
     border-width: 5px;
 }
+.events tr:nth-of-type(odd) {
+  background-color:#ccc;
+}
+.section tr:nth-of-type(odd){
+    background-color:#E1E4EA;
+}
+.section tr:nth-of-type(even){
+    background-color:#BFBFBF;
+}
 div.features{
     padding-left: 50px;
 }

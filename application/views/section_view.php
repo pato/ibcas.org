@@ -19,7 +19,7 @@ function URL(){
 <head>
     <title>IB CAS Organizer</title>
     <link rel="stylesheet" href="/css/style.php" type="text/css"/>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
     <link rel="stylesheet" type="text/css" href="/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
      <script type="text/javascript">
@@ -70,25 +70,41 @@ $("#showuploadgoalform<?=$y?>").fancybox({
         $i++;
         ?>
            <div class="container">
-                <h3><?=$event['title']?></h3>
-                    <p>Total Hours: <?=$event['hours']?></p>
-                    <br><p>Goal Form:</p>
-                    <p><a href="/files/<?=$event['goal']?>"><?=$event['goal']?></a> <a id="showdeletegoalform<?=$i?>" href="#deletegoalform<?=$i?>"><img src="/img/delete.png" alt="[Delete]" title="Delete" width="20" height="20"></a> <a id="showuploadgoalform<?=$i?>" href="#uploadgoalform<?=$i?>"><img src="/img/upload.png" alt="[Upload]" title="Upload" width="20" height="20"></a></p>
-                    <br><p>Reflections: <a id="showuploadreflection<?=$i?>" href="#uploadreflection<?=$i?>"><img src="/img/upload.png" alt="[Upload New]" title="Upload New" width="20" height="20"></a></p>
-                    <?php //echo '<p><a href="/files/'.$reflection.'">'.$reflection.'</a>';//</p>';
-                    $y = 0;
-                    foreach ($event['reflections'] as $reflection): 
-                        $y++;
-                    ?>
-                        <p><a href="/files/<?=$reflection?>"><?=$reflection?></a> <a id="showdeletereflection<?=$i.'a'.$y?>" href="#deletereflection<?=$i.'a'.$y?>"><img src="/img/delete.png" alt="[Delete]" title="Delete" width="20" height="20"></a></p>
-                    <?
-                    endforeach;
-                    ?>
-                    <br>
-                    <p>Log:</p>
-                    <a href="/anizer/log?id=<?=$event['logid']?>"><img src="/img/edit.png" alt="[Edit]" title="Edit" width="20" height="20"></a>
-                    <a href="/anizer/makelog?id=<?=$event['logid']?>"><img src="/img/download.png" alt="[Download]" title="Download" width="20" height="20"></a>
-            </div>
+               <h3><?=$event['title']?></h3>
+               <p>Total Hours: <?=$event['hours']?></p>
+               <center>
+               <table class="section">
+                   <tr>
+                       <td>Goal Form</td>
+                       <td><a href="/files/<?=$event['goal']?>"><?=$event['goal']?></a></td>
+                       <td><a id="showdeletegoalform<?=$i?>" href="#deletegoalform<?=$i?>"><img src="/img/delete.png" alt="[Delete]" title="Delete" width="20" height="20"></a></td>
+                       <td><a id="showuploadgoalform<?=$i?>" href="#uploadgoalform<?=$i?>"><img src="/img/upload.png" alt="[Upload]" title="Upload" width="20" height="20"></a></td>
+                   </tr>
+                   <tr>
+                       <td>Reflections</td>
+                       <td></td>
+                       <td></td>
+                       <td><a id="showuploadreflection<?=$i?>" href="#uploadreflection<?=$i?>"><img src="/img/upload.png" alt="[Upload New]" title="Upload New" width="20" height="20"></a></td>
+                   </tr>
+                   <? $y = 0; foreach ($event['reflections'] as $reflection):
+                    $y++;
+                   ?>
+                   <tr>
+                   <td></td>
+                   <td><a href="/files/<?=$reflection?>"><?=$reflection?></a></td>
+                   <td><a id="showdeletereflection<?=$i.'a'.$y?>" href="#deletereflection<?=$i.'a'.$y?>"><img src="/img/delete.png" alt="[Delete]" title="Delete" width="20" height="20"></a></td>
+                   <td></td>
+                   </tr>
+                   <? endforeach;?>
+                   <tr>
+                       <td>Log</td>
+                       <td></td>
+                       <td><a href="/anizer/log?id=<?=$event['logid']?>"><img src="/img/edit.png" alt="[Edit]" title="Edit" width="20" height="20"></a></td>
+                       <td><a href="/anizer/makelog?id=<?=$event['logid']?>"><img src="/img/download.png" alt="[Download]" title="Download" width="20" height="20"></a></td>
+                   </tr>
+               </table>
+               </center>
+        </div>
         <?php endforeach; ?>
         <?php $this->load->view("footer"); ?>
     </div>

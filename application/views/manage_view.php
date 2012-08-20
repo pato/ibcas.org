@@ -28,7 +28,7 @@ function encode($string){
         <?php foreach ($sections as $section): ?>
             <div class="container">
                 <h2><?=$section['name'] ?></h2><br>
-                <table style="margin-left:auto;margin-right:auto;">
+                <table style="margin-left:auto;margin-right:auto;" class="events">
                 <?php
                 $i = 0;
                 foreach ($section['events'] as $event):
