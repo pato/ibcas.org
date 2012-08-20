@@ -10,5 +10,6 @@
 
 ?>
 <div class="container footer">
+    <?$this->load->view("qotd");?>
     Copyright &copy; 2012 Patricio Lankenau | <a href="/anizer/terms">Terms of Service</a>
 </div>

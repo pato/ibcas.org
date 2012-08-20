@@ -24,6 +24,7 @@
                 limitToToday:true
         });
     </script>
+    <?$this->load->view('tracking');?>
 </head>
 <body>
 <center>

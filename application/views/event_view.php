@@ -11,7 +11,6 @@
 <head>
     <title>IB CAS Organizer</title>
     <link rel="stylesheet" href="/css/style.php" type="text/css"/>
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
     <link rel="stylesheet" type="text/css" href="/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
@@ -29,6 +28,7 @@
             });
         });
 	</script>
+    <?$this->load->view('tracking');?>
 </head>
 <body>
 <center>

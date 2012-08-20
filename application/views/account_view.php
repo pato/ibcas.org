@@ -32,6 +32,7 @@
         //$("#passwordform").validationEngine();
        });
      </script>
+    <?$this->load->view('tracking');?>
 </head>
 <body>
 <center>

@@ -12,6 +12,7 @@
 <head>
     <title>IB CAS Organizer</title>
     <link rel="stylesheet" href="/css/style.php" type="text/css"/>
+    
 </head>
 <body>
 <center>

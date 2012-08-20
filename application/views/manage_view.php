@@ -15,6 +15,7 @@ function encode($string){
 <head>
     <title>IB CAS Organizer</title>
     <link rel="stylesheet" href="/css/style.php" type="text/css"/>
+    <?$this->load->view('tracking');?>
 </head>
 <body>
 <center>

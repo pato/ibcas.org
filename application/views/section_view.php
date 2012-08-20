@@ -54,6 +54,7 @@ $("#showuploadgoalform<?=$y?>").fancybox({
            
        });
      </script>
+    <?$this->load->view('tracking');?>
 </head>
 <body>
 <center>
