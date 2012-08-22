@@ -263,7 +263,8 @@ class Anizer extends CI_Controller{
             $this->log->load($this->input->post('id'));
             $this->log->updateData();
             $this->student->updateHours($this->input->post('id'));
-            redirect('/anizer/log?id='.$this->input->post('id'), 'refresh');
+            //redirect('/anizer/log?id='.$this->input->post('id'), 'refresh');
+            $this->message2("Log saved!",'/anizer/log?id='.$this->input->post('id'));
         }else{
             redirect('/anizer/login', 'refresh');
         }
