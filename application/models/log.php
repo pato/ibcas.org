@@ -69,7 +69,7 @@ class Log extends CI_Model{
             $text .= $entry['time']."^";
             $text .= $entry['hours']."^";
             $text .= "#";
-            $totalhours += intval($entry['hours']);
+            $totalhours += doubleval($entry['hours']);
         }
         $this->entriestext = $text;
         $this->hours = $totalhours;
