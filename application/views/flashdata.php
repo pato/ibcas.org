@@ -7,7 +7,7 @@ if ($this->session->flashdata('is')=="true"){
     <script type="text/javascript">
         window.onload = function (){
             //$("#msg").slideDown('slow');
-            $("#msg").delay(2000).slideUp('slow');
+            $("#msg").delay(1500).slideUp('slow');
         }
     </script>
     <?
