@@ -34,11 +34,11 @@ a:link {
 a:visited {
     color: #000000;
 }
-a:hover {
+a:active {
     color: #FF0000;
 }
-a:active {
-    color: #00FF00;
+a:hover {
+    color: #335FD6;
 }
 table.progress{
     width:100%;
