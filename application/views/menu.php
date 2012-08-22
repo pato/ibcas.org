@@ -19,3 +19,4 @@
     <a href="/anizer/login">Login</a> | <a href="/anizer/signup">Signup</a>
     <?php } ?>
 </div>
+<?php $this->load->view("flashdata"); ?>

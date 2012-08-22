@@ -26,6 +26,12 @@ class Anizer extends CI_Controller{
         $data['alive'] = $a;
         $this->load->view('message_view', $data);
     }
+    private function message2($m, $u, $a=true){
+        $this->load->library('session');
+        $this->session->set_flashdata('msg',$m);
+        $this->session->set_flashdata('is','true');
+        redirect($u);
+    }
     private function decode($string){
         return base64_decode($string);
     }
@@ -118,7 +124,7 @@ class Anizer extends CI_Controller{
             $this->load->view("rename_view", $data);
         }else if($task[0]=="delete"){
             $this->student->deleteEvent($task[1],$task[2]);
-            $this->message("Event deleted!", "/anizer/manage");
+            $this->message2("Event deleted!", "/anizer/manage");
         }else if($task[0]=="add"){
             $data['action']="Add";
             $data['section']=$task[1];
@@ -139,7 +145,7 @@ class Anizer extends CI_Controller{
             $section = $this->input->post('section');
             $name = $this->input->post('name');
             $this->student->addEvent($section, $name);
-            $this->message("Event added!","/anizer/manage");
+            $this->message2("Event added!","/anizer/manage");
         }else{
             redirect('/anizer/login', 'refresh');
         }
@@ -157,7 +163,7 @@ class Anizer extends CI_Controller{
             $old = $this->input->post('old');
             $new = $this->input->post('name');
             $this->student->renameEvent($section, $old, $new);
-            $this->message("Event renamed!","/anizer/manage");
+            $this->message2("Event renamed!","/anizer/manage");
         }else{
             redirect('/anizer/login', 'refresh');
         }
@@ -183,7 +189,7 @@ class Anizer extends CI_Controller{
             $this->load->view('signup_view');
         }else{
             $this->student->signup();
-            $this->message("Signed up successfully!","/anizer/login",false);
+            $this->message2("Signed up successfully!","/anizer/login",false);
         }
     }
     public function login(){
@@ -206,7 +212,8 @@ class Anizer extends CI_Controller{
         }else{
             $this->student->loginForm();
             if ($this->student->loggedin){
-                $this->message("Logged in successfully!","/anizer/", false);
+                //$this->message2("Logged in successfully!","/anizer/", false);
+                $this->message2("Logged in successfully!","/anizer/");
             }else{
                 $data['msg'] =  "Could not authenticate";
                 $this->load->view('login_view',$data);
@@ -216,7 +223,8 @@ class Anizer extends CI_Controller{
     public function logout(){
         session_start();
         session_destroy();
-        $this->message("Logged out successfully!","/anizer/login",false);
+        //$this->message2("Logged out successfully!","/anizer/login",false);
+        $this->message2("Logged out successfully!","/anizer/",false);
     }
     public function log(){
         $this->load->model("student");
@@ -275,7 +283,7 @@ class Anizer extends CI_Controller{
             $this->student->deleteGoalForm($type, $title);
             if (file_exists("files/".$file))
 				unlink("files/".$file);
-            $this->message("Goal form deleted!",$this->input->post('url'));
+            $this->message2("Goal form deleted!",$this->input->post('url'));
         }else{
             redirect('/anizer/login', 'refresh');
         }
@@ -296,7 +304,7 @@ class Anizer extends CI_Controller{
             $this->student->deleteReflection($type, $title, $num);
             if (file_exists("files/".$file))
 				unlink("files/".$file);
-            $this->message("Reflection deleted!",$this->input->post('url'));
+            $this->message2("Reflection deleted!",$this->input->post('url'));
         }else{
             redirect('/anizer/login', 'refresh');
         }
@@ -320,7 +328,7 @@ class Anizer extends CI_Controller{
 
             if (!$this->upload->do_upload()){
                     $error = array('error' => $this->upload->display_errors());
-                    $this->message("<err>Error uploading</err>",$this->input->post('url'));
+                    $this->message2("<err>Error uploading</err>",$this->input->post('url'));
             }else{
                     $udata = $this->upload->data();
                     $name = rand(100000,999999).'-'.$this->student->username.'-'.$udata['file_name'];
@@ -328,7 +336,7 @@ class Anizer extends CI_Controller{
                     $type = $this->input->post('event_type');
                     $title = $this->input->post('event_title');
                     $this->student->addGoalForm($type, $title, $name);
-                    $this->message("Uploaded succesfully!",$this->input->post('url'));
+                    $this->message2("Uploaded succesfully!",$this->input->post('url'));
             }
         }else{
             redirect('/anizer/login', 'refresh');
@@ -353,7 +361,7 @@ class Anizer extends CI_Controller{
 
             if (!$this->upload->do_upload()){
                     $error = array('error' => $this->upload->display_errors());
-                    $this->message("<err>Error uploading</err>",$this->input->post('url'));
+                    $this->message2("<err>Error uploading</err>",$this->input->post('url'));
             }else{
                     $udata = $this->upload->data();
                     $name = rand(100000,999999).'-'.$this->student->username.'-'.$udata['file_name'];
@@ -361,7 +369,7 @@ class Anizer extends CI_Controller{
                     $type = $this->input->post('event_type');
                     $title = $this->input->post('event_title');
                     $this->student->addReflection($type, $title, $name);
-                    $this->message( "Uploaded succesfully!", $this->input->post('url'));
+                    $this->message2( "Uploaded succesfully!", $this->input->post('url'));
             }
         }else{
             redirect('/anizer/login', 'refresh');
@@ -412,7 +420,7 @@ class Anizer extends CI_Controller{
             $this->student->setBackground($this->input->get("id"));
             setcookie("bg",$this->student->getBackground());
             
-            $this->message("Background Changed!", "/");
+            $this->message("Background Changed!", "/anizer/");
             
         }else{
             redirect('/anizer/login', 'refresh');
@@ -448,7 +456,7 @@ class Anizer extends CI_Controller{
         }
         if ($this->student->loggedin){
             $this->student->changeInfo();
-            $this->message("Information changed successfully!", '/anizer/');
+            $this->message2("Information changed successfully!", '/anizer/account');
         }else{
             redirect('/anizer/login', 'refresh');
         }
@@ -463,7 +471,7 @@ class Anizer extends CI_Controller{
         }
         if ($this->student->loggedin){
             $this->student->setEmail($this->input->post("email"));
-            $this->message("Email changed successfully!", '/anizer/');
+            $this->message2("Email changed successfully!", '/anizer/account');
         }else{
             redirect('/anizer/login', 'refresh');
         }
@@ -488,7 +496,7 @@ class Anizer extends CI_Controller{
                 $this->load->view('account_view', $data);
             }else{
                 $this->student->setPassword($this->input->post("repassword"));
-                $this->message("Password changed successfully!", '/anizer/logout');
+                $this->message2("Password changed successfully!", '/anizer/logout');
             }
         }else{
             redirect('/anizer/login', 'refresh');
