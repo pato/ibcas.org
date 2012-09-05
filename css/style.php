@@ -32,13 +32,19 @@ a:link {
     color: #000000;
 }
 a:visited {
+    text-decoration:none;
     color: #000000;
 }
 a:active {
+    text-decoration:none;
     color: #FF0000;
 }
 a:hover {
+    text-decoration:none;
     color: #335FD6;
+}
+a img{
+    border:none;
 }
 table.progress{
     width:100%;
@@ -268,6 +274,7 @@ input.register {
     border-style: solid;
     border-width: 5px;
 }
+<? /*
 .events tr:nth-of-type(odd) {
   background-color:#ccc;
 }
@@ -276,6 +283,16 @@ input.register {
 }
 .section tr:nth-of-type(even){
     background-color:#BFBFBF;
+}
+*/ ?>
+tr.even td{
+    background-color:#BFBFBF;
+}
+tr.odd td{
+    background-color:#E1E4EA;
+}
+tr.events td{
+    background-color:#ccc;
 }
 div.features{
     padding-left: 50px;
@@ -300,4 +317,4 @@ div.description{
 p.description_content{
     padding:5px;
     margin:0px;
-} 
+}

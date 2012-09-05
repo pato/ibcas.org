@@ -1,0 +1,12 @@
+.l-triangle-top {
+	left: 150px;
+	top: 50px;
+}
+.l-triangle-bottom {
+	left: 50px;
+	top: -12px;
+}
+.r-triangle-top {}
+.r-triangle-bottom {
+	top: -169px;
+}
