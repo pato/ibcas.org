@@ -8,7 +8,32 @@
  *
  * ###################################################################################################
  */
-
+/*
+<div id="navigation_container">
+    <div class="l-triangle-top"></div>
+    <div class="l-triangle-bottom"></div>
+    <div class="rectangle">
+    <?php if (isset($alive)&&$alive==true){ ?>
+        <ul id="navigation">
+          <li><a href="/anizer">Home</a></li>
+          <li><a href="/anizer/manage">Manage Events</a></li>
+          <li><a href="/anizer/section?id=0">Creativity</a></li>
+          <li><a href="/anizer/section?id=1">Action</a></li>
+          <li><a href="/anizer/section?id=2">Service</a></li>
+          <li><a href="/anizer/account">Account</a></li>
+          <li><a href="/anizer/logout">Logout</a></li>
+        </ul>
+    <?php }else{ ?>
+        <ul id="navigation">
+           <li><a href="/anizer/login">Login</a></li>
+           <li><a href="/anizer/signup">Signup</a></li>
+        </ul>
+   <?php } ?>
+   </div>
+   <div class="r-triangle-top"></div>
+   <div class="r-triangle-bottom"></div>
+</div>
+ */
 ?>
 <div class="container">
     <?php
@@ -19,4 +44,5 @@
     <a href="/anizer/login">Login</a> | <a href="/anizer/signup">Signup</a>
     <?php } ?>
 </div>
+
 <?php $this->load->view("flashdata"); ?>

@@ -8,6 +8,7 @@
  */
 
 ?>
+<? $this->load->view("doctype"); ?>
 <html>
 <head>
     <title>IB CAS Organizer</title>

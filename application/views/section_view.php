@@ -14,7 +14,7 @@ function URL(){
     return "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 }
 ?>
-
+<? $this->load->view("doctype"); ?>
 <html>
 <head>
     <title>IB CAS Organizer</title>
@@ -24,6 +24,9 @@ function URL(){
     <link rel="stylesheet" type="text/css" href="/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
      <script type="text/javascript">
        $(document).ready(function() {
+
+           $(".section tr:even").addClass("even");
+           $(".section tr:odd").addClass("odd");
            <?php for ($y=1;$y<=count($events);$y++): ?>
 $("#showuploadgoalform<?=$y?>").fancybox({
                     'titlePosition'		: 'outside',
