@@ -39,7 +39,13 @@
     <?php
     if (isset($alive)&&$alive==true){
     ?>
-    <a href="/anizer">Home</a> | <a href="/anizer/manage">Manage Events</a> | <a href="/anizer/section?id=0">Creativity</a> | <a href="/anizer/section?id=1">Action</a> | <a href="/anizer/section?id=2">Service</a> | <a href="/anizer/account">Account</a> | <a href="/anizer/logout">Logout</a>
+    <table style="margin-left:11%;margin-right:10px;width:70%;">
+        <tr>
+            <td><a href="/anizer">Home</a> | <a href="/anizer/manage">Manage Events</a></td>
+            <td><a href="/anizer/section?id=0">Creativity</a> &#9734 <a href="/anizer/section?id=1">Action</a> &#9734 <a href="/anizer/section?id=2">Service</a></td>
+            <td><a href="/anizer/account">Account</a> | <a href="/anizer/logout">Logout</a></td>
+        </tr>
+    </table>
     <?php }else{ ?>
     <a href="/anizer/login">Login</a> | <a href="/anizer/signup">Signup</a>
     <?php } ?>
