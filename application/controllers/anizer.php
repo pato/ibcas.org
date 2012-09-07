@@ -36,9 +36,12 @@ class Anizer extends CI_Controller{
         return base64_decode($string);
     }
     public function index(){
+        /*
         if (!strstr(current_url(),"anizer")){
            redirect('/anizer', 'refresh');
         }
+         * 
+         */
         $this->load->model("student");
         if (!isset($_SESSION)) {
             session_start();
@@ -494,6 +497,9 @@ class Anizer extends CI_Controller{
                 $data['background'] = $this->student->background;
                 $data['username'] = $this->student->username;
                 $data['email'] = $this->student->email;
+                $data['fullname'] = $this->student->fullname;
+                $data['candidateid'] = $this->student->candidateid;
+                $data['school'] = $this->student->school;
                 $this->load->view('account_view', $data);
             }else{
                 $this->student->setPassword($this->input->post("repassword"));
