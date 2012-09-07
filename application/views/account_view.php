@@ -9,15 +9,12 @@
  */
 
 ?>
+<? $this->load->view("doctype"); ?>
 <html>
 <head>
     <title>IB CAS Organizer</title>
-    <link rel="stylesheet" href="/css/style.php" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="/css/validationEngine.jquery.css"/>
+    <link rel="stylesheet" href="../css/style.php" type="text/css"/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="/js/jquery.validationEngine-en.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/js/jquery.validationEngine.js" charset="utf-8"></script>
      <script type="text/javascript">
        $(document).ready(function() {
            //$("#backgroundselect").hide();
@@ -28,8 +25,6 @@
            $("#show_es").click(function (){
                $("#settings").toggle("slow");
            });
-        $("#emailform").validationEngine();
-        //$("#passwordform").validationEngine();
        });
      </script>
     <?$this->load->view('tracking');?>
