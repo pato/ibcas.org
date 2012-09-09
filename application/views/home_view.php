@@ -51,6 +51,14 @@ function section($section){
     <meta name="description" content="This is an IB CAS requirements organizer, used to handle all the paperwork and logs that are required for completion of the CAS section of the IB Diploma Programme." />
     <meta name="keywords" content="ib, cas, organizer, international, baccalaureate, manager, agenda, free, diploma, programme, program, logs, paperwork, required, creativity, action, service" />
     <meta name="author" content="Patricio Lankenau" />
+    <script type="text/javascript">
+       $(document).ready(function() {
+           $("#news").hide();
+           $("#show_news").click(function (){
+               $("#news").toggle("slow");
+           });
+       });
+    </script>
     <?$this->load->view('tracking');?>
 </head>
 <body>
@@ -94,6 +102,20 @@ function section($section){
                     </td>
                 </tr>
             </table>
+        </div>
+        <div class="container">
+            <h3 id="show_news" onclick="this.innerHTML='News'">Display News</h3>
+            <div style="text-align: left;">
+            <code id="news">
+            <p>[September 9, 2012]</p>
+            <p>Thanks to a suggestion, CAS events can now be created, renamed, and deleted from the section view</p>
+            <p>Furthermore, before an event is permanently deleted, a confirmation dialog will be shown</p>
+
+            <p>[September 8, 2012]</p>
+            <p>The menu has been re-designed</p>
+            <p>News section was added to the homepage</p>
+            </code>
+            </div>
         </div>
         <?php $this->load->view("footer"); ?>
     </div>
