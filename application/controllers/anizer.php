@@ -166,7 +166,14 @@ class Anizer extends CI_Controller{
             $old = $this->input->post('old');
             $new = $this->input->post('name');
             $this->student->renameEvent($section, $old, $new);
-            $this->message2("Event renamed!","/anizer/manage");
+            if ($section == "Creativity"){
+                $this->message2("Event renamed!","/anizer/section?id=0");
+            }else if ($section == "Action"){
+                $this->message2("Event renamed!","/anizer/section?id=1");
+            }else if ($section == "Service"){
+                $this->message2("Event renamed!","/anizer/section?id=2");
+            }
+            //$this->message2("Event renamed!","/anizer/manage");
         }else{
             redirect('/anizer/login', 'refresh');
         }

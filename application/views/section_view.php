@@ -13,6 +13,9 @@
 function URL(){
     return "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 }
+function encode($string){
+    return base64_encode($string);
+}
 ?>
 <? $this->load->view("doctype"); ?>
 <html>
@@ -23,6 +26,12 @@ function URL(){
     <script type="text/javascript" src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
     <link rel="stylesheet" type="text/css" href="/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
      <script type="text/javascript">
+         function confirmDelete($url) {
+            var answer = confirm("You are about to permamently delete this event")
+            if (answer){
+                window.location = "/anizer/events?v="+$url;
+            }
+        }
        $(document).ready(function() {
 
            $(".section tr:even").addClass("even");
@@ -67,14 +76,21 @@ $("#showuploadgoalform<?=$y?>").fancybox({
             <h1><?php echo $name; ?></h1>
         </div>
         <?php $this->load->view("menu"); ?>
+        <div class="container" style="padding:10px;">
+            <h2><a href="/anizer/events?v=<?=encode("add(^)".ucfirst($sname)) ?>">.::Add Event::.</a></h2>
+        </div>
         <?php
         $i = 0;
         foreach ($events as $event):
         $i++;
         ?>
-           <div class="container">
+           <div class="container" style="position:relative;">
                <h3><?=$event['title']?></h3>
                <p>Total Hours: <?=$event['hours']?></p>
+               <div style="position:absolute;top:10px;right:10px;">
+               <a href="/anizer/events?v=<?=encode("rename(^)".ucfirst($sname)."(^)".$event['title']) ?>"><img src="/img/rename.png" alt="[Rename]" title="Rename" width="20" height="20"></a>
+               <a href="javascript:void(0)" onclick="confirmDelete('<?=encode("delete(^)".ucfirst($sname)."(^)".$event['title']) ?>');"><img src="/img/delete.png" alt="[Delete]" title="Delete" width="20" height="20"></a>
+               </div>
                <center>
                <table class="section">
                    <tr>
