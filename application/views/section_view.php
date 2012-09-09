@@ -26,7 +26,7 @@ function encode($string){
     <script type="text/javascript" src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
     <link rel="stylesheet" type="text/css" href="/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
      <script type="text/javascript">
-         function confirmDelete($url) {
+        function confirmDelete($url) {
             var answer = confirm("You are about to permamently delete this event")
             if (answer){
                 window.location = "/anizer/events?v="+$url;
