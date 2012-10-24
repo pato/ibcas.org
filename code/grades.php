@@ -180,10 +180,10 @@ function getClassGrades($result){
 	$htmle = htmlentities($html[2]);
 	preg_match_all('/(.*?) = \'\';/',$htmle,$matches);
 	$var = $matches[1][0];
-	$code = decodeString(clean($html[2], $var));
+	$code = decodeString(clean($html[2], $var)); //<td class="AssignmentPointsPossible">(.*?)</td>
 	preg_match_all('#<td class="AssignmentName">(.*?)</td><td class="DateAssigned">(.*?)</td><td class="DateDue">(.*?)</td><td class="AssignmentGrade">(.*?)</td>#',$code,$grades);
 	//return $grades[4];
-	return array($grades[1],$grades[3],$grades[4]);
+	return array($grades[1],$grades[3],$grades[4]); //, $grades[5]
 	//Assigment Name, Date Due, Grade
 }
 function getLinks($result){
