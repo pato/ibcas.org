@@ -193,7 +193,7 @@ class Anizer extends CI_Controller{
             $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
-            redirect('/anizer/', 'refresh');
+            redirect('/anizer/');
         }
         if ($this->form_validation->run() == FALSE){
             $this->load->view('signup_view');
@@ -215,7 +215,7 @@ class Anizer extends CI_Controller{
             $this->student->login($user,$pass);
         }
         if ($this->student->loggedin){
-            redirect('/anizer/', 'refresh');
+            redirect('/anizer/');
         }
         if ($this->form_validation->run() == FALSE){
             $this->load->view('login_view');
@@ -647,11 +647,11 @@ class Anizer extends CI_Controller{
                 }
             }
             $zip = new ZipArchive;
-            $file = "CAS.zip";
-            $res = $zip->open($file, ZipArchive::CREATE);
+            $file2 = "CAS.zip";
+            $res = $zip->open($file2, ZipArchive::CREATE);
 
             foreach (array($this->student->creativity, $this->student->action, $this->student->service) as $current){
-//                echo "##".$current['name']."##<br>";
+                //echo "##".$current['name']."##<br>";
                 $zip->addEmptyDir($current['name']);
                 foreach ($current['events'] as $event){
                     $ext = '.'.end(explode('.', 'files/'.$event["goal"]));
@@ -659,7 +659,8 @@ class Anizer extends CI_Controller{
                         $zip->addFile('files/'.$event["goal"], $current['name'].'/'.$event['title'].'/Goalform'.$ext);
 
                     if ($event['logid'] !== ""){
-                        $zip->addFile('files/templog'.$event['logid'].'.docx"',$current['name'].'/'.$event['title'].'/Log.docx');
+                        if (file_exists('files/templog'.$event['logid'].'.docx"'))
+                            $zip->addFile('files/templog'.$event['logid'].'.docx"',$current['name'].'/'.$event['title'].'/Log.docx');
                     }
                     $i = 1;
                     foreach ($event['reflections'] as $reflection){
@@ -669,14 +670,63 @@ class Anizer extends CI_Controller{
                     }
                 }
             }
-            
+
             $zip->close();
+//            echo "<a href=\"{$file2}\"> File </a>";
 
             header("Content-Type: application/zip");
-            header("Content-Length: " . filesize($file));
-            header("Content-Disposition: attachment; filename=\"{$file}\"");
-            readfile($file);
-            unlink($file);
+            //header("Content-Length: " . filesize($file2));
+            header("Content-Disposition: attachment; filename=\"{$file2}\"");
+            readfile($file2);
+            unlink($file2);
+        }else{
+            redirect('/anizer/login', 'refresh');
+        }
+    }
+    public function export2(){
+        $this->load->model("student");
+        if (!isset($_SESSION)) {
+            session_start();
+            $user = (isset($_SESSION['username']))?$_SESSION['username']:"";
+            $pass = (isset($_SESSION['password']))?$_SESSION['password']:"";
+            $this->student->login($user,$pass);
+        }
+        $logs = array();
+        if ($this->student->loggedin){
+            foreach (array($this->student->creativity, $this->student->action, $this->student->service) as $current){
+                foreach ($current['events'] as $event){
+                    array_push($logs,$this->makelog(true, $event['logid']));
+                }
+            }
+
+
+            foreach (array($this->student->creativity, $this->student->action, $this->student->service) as $current){
+                echo "##".$current['name']."##<br>";
+                //$zip->addEmptyDir($current['name']);
+                foreach ($current['events'] as $event){
+                    $ext = '.'.end(explode('.', 'files/'.$event["goal"]));
+                    if (file_exists('files/'.$event["goal"])){
+                        $file = '../files/'.$event["goal"];//."-".$current['name'].'/'.$event['title'].'/Goalform'.$ext;
+                        echo "<a href=\"{$file}\">{$file}</a>"."<br>";
+
+                    }
+                        //$zip->addFile('files/'.$event["goal"], $current['name'].'/'.$event['title'].'/Goalform'.$ext);
+
+                    if ($event['logid'] !== ""){
+                        $file = '../files/templog'.$event['logid'].'.docx';
+                        echo "<a href=\"{$file}\">{$file}</a>"."<br>";
+                        //$zip->addFile('files/templog'.$event['logid'].'.docx"',$current['name'].'/'.$event['title'].'/Log.docx');
+                    }
+                    $i = 1;
+                    foreach ($event['reflections'] as $reflection){
+                        $ext = '.'.end(explode('.', 'files/'.$reflection));
+                        if (file_exists('files/'.$reflection))
+                            $file = '../files/'.$reflection;
+                            echo "<a href=\"{$file}\">{$file}</a>"."<br>";
+                            //$zip->addFile('files/'.$reflection, $current['name'].'/'.$event['title'].'/Reflection '.$i++.$ext);
+                    }
+                }
+            }
         }else{
             redirect('/anizer/login', 'refresh');
         }
