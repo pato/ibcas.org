@@ -35,6 +35,7 @@
 </div>
  */
 ?>
+
 <div class="container" style="padding:10px;">
     <?php
     if (isset($alive)&&$alive==true){

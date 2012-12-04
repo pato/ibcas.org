@@ -21,19 +21,21 @@ function section($section){
 	$progress = 100*($section[1]/50);
         if ($progress>100){
             $progress = 100;
-            $color = "";
+            $color = "progress-success";
         }
 	if ($progress>70){
-		$color = "";
+		$color = " progress-success";
 	}else if ($progress>35){
-		$color = " orange";
+		$color = " progress-warning";
 	}else{
-		$color = " red";
+		$color = " progress-danger";
 	}
+        $color .= " progress-striped";
     ?>
-    <div class="meter<?=$color?>">
-        <span style="width: <?=$progress?>%"></span>
+    <div class="progress <?=$color?>">
+        <div class="bar" style="width: <?=$progress?>%;"></div>
     </div>
+
     </a>
     <p>Total Hours: <?php echo $section[1]; ?></p>
 
@@ -45,7 +47,12 @@ function section($section){
 <html>
 <head>
     <title>IB CAS Organizer</title>
-    <link rel="stylesheet" href="../css/style.php" type="text/css"/>
+
+    <link href="../css/mystyle.css" rel="stylesheet" media="screen">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
     <link href='/favicon.ico' rel='shortcut icon'/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <meta name="description" content="This is an IB CAS requirements organizer, used to handle all the paperwork and logs that are required for completion of the CAS section of the IB Diploma Programme." />
@@ -53,9 +60,8 @@ function section($section){
     <meta name="author" content="Patricio Lankenau" />
     <script type="text/javascript">
        $(document).ready(function() {
-           $("#news").hide();
            $("#show_news").click(function (){
-               $("#news").toggle("slow");
+               $("#news").toggle("fast");
            });
        });
     </script>
@@ -65,59 +71,55 @@ function section($section){
 <center>
 <div class="pageContent">
     <div id="main">
+        <?php $this->load->view("menu2"); ?>
         <div class="container">
-            <h1>IB CAS Organizer</h1>
-        </div>
-        <?php $this->load->view("menu"); ?>
-        <div class="container">
-            <?php /*
-            <h3>Total Progress</h3>
-                <div class="meter">
-                <span style="width: <?=$totalprogress?>%"></span>
+            <div class="row-fluid">
+                <div class="span10 offset1">
+                    <div class="unit">
+                        <h3>Overview</h3>
+                        <table class="progress">
+                            <tr>
+                                <td>
+                                    <div class="section">
+                                        <h2>Creativity</h2>
+                                        <?php section($creativity); ?>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="section">
+                                        <h2>Action</h2>
+                                         <?php section($action); ?>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="section">
+                                        <h2>Service</h2>
+                                        <?php section($service); ?>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="news" class="unit">
+                        <h3 id="show_news"> News</h3>
+                        <div class="well" style="background-color: #fff;">
+                            <h4>November 13, 2012</h4>
+                            <p>Started site-wide UI update</p>
+                            <?/*
+                            <h4>September 9, 2012</h4>
+                            <p>Thanks to a suggestion, CAS events can now be created, renamed, and deleted from the section view</p>
+                            <p>Furthermore, before an event is permanently deleted, a confirmation dialog will be shown</p>
+                            <h4>September 8, 2012</h4>
+                            <p>The menu has been re-designed</p>
+                            <p>News section was added to the homepage</p>
+                             */?>
+                        </div>
+                    </div>
+                    <?php $this->load->view("footer2"); ?>
                 </div>
-                <p>Total Hours: <?=$totalhours?></p>
-            <h3>Individual Progress</h3>
-             *
-             */ ?>
-            <h3>Overview</h3>
-            <table class="progress">
-                <tr>
-                    <td>
-                        <div class="section">
-                            <h2>Creativity</h2>
-                            <?php section($creativity); ?>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="section">
-                            <h2>Action</h2>
-                             <?php section($action); ?>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="section">
-                            <h2>Service</h2>
-                            <?php section($service); ?>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="container">
-            <h3 id="show_news" onclick="this.innerHTML='News'">Display News</h3>
-            <div style="text-align: left;">
-            <code id="news">
-            <p>[September 9, 2012]</p>
-            <p>Thanks to a suggestion, CAS events can now be created, renamed, and deleted from the section view</p>
-            <p>Furthermore, before an event is permanently deleted, a confirmation dialog will be shown</p>
-
-            <p>[September 8, 2012]</p>
-            <p>The menu has been re-designed</p>
-            <p>News section was added to the homepage</p>
-            </code>
             </div>
         </div>
-        <?php $this->load->view("footer"); ?>
+        
     </div>
 </div>
 </center>
